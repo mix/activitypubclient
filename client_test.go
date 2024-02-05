@@ -19,13 +19,13 @@ func TestClient_LoadIRI(t *testing.T) {
 	c := New()
 
 	var err error
-	_, err = c.LoadIRI(empty)
+	_, err = c.LoadIRI(empty, nil)
 	if err == nil {
 		t.Errorf("LoadIRI should have failed when using empty IRI value")
 	}
 
 	inv := vocab.IRI("example.com")
-	_, err = c.LoadIRI(inv)
+	_, err = c.LoadIRI(inv, nil)
 	if err == nil {
 		t.Errorf("LoadIRI should have failed when using invalid http url")
 	} else {

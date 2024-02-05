@@ -4,14 +4,12 @@ import (
 	"fmt"
 	"io"
 	"strings"
-
-	vocab "github.com/go-ap/activitypub"
 )
 
 type err struct {
 	err error
 	msg string
-	i   vocab.IRI
+	i   VocabIRI
 }
 
 func (e err) annotate(err error) err {
@@ -19,7 +17,7 @@ func (e err) annotate(err error) err {
 	return e
 }
 
-func (e err) iri(i vocab.IRI) err {
+func (e err) iri(i VocabIRI) err {
 	e.i = i
 	return e
 }
@@ -34,7 +32,7 @@ func errf(msg string, p ...interface{}) err {
 func (e err) Error() string {
 	s := strings.Builder{}
 	s.WriteString(e.msg)
-	if e.i != "" {
+	if e.i.String() != "" {
 		s.WriteString(": ")
 		s.WriteString(e.i.String())
 	}
